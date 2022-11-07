@@ -102,6 +102,7 @@ export const buildPayload = async () => {
   const repo = `${context.repo.owner}/${context.repo.repo}`
   const repoUrl = `${context.serverUrl}/${repo}`
   const jobStatus = getInput("status") as JobStatus
+  const channel = getInput("channel")
 
   const patterns: Record<string, string> = {
     repo,
@@ -137,6 +138,9 @@ export const buildPayload = async () => {
   }
 
   const payload = { attachments: [attachment] }
+  if (channel) {
+    payload.channel = channel
+  }
   return JSON.stringify(payload)
 }
 
